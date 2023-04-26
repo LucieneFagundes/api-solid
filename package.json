@@ -18,11 +18,13 @@
     "@typescript-eslint/parser": "5.59.1",
     "dotenv": "16.0.3",
     "eslint": "8.39.0",
+    "prisma": "4.13.0",
     "tsup": "6.7.0",
     "tsx": "3.12.6",
     "typescript": "5.0.4"
   },
   "dependencies": {
+    "@prisma/client": "4.13.0",
     "fastify": "4.16.0",
     "zod": "3.21.4"
   }
