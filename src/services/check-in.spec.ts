@@ -1,26 +1,28 @@
 import { InMemoryCheckInsRepository } from 'src/repositories/in-memory/in-memory-checkins-repository'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { CheckInService } from './check-in'
-import { InMemoryGymRepository } from 'src/repositories/in-memory/in-memory-gym-repository'
 import { Decimal } from '@prisma/client/runtime/library'
+import { InMemoryGymsRepository } from 'src/repositories/in-memory/in-memory-gyms-repository'
+import { MaxDistanceError } from './errors/max-distance-error'
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error'
 
 let checkInsRepository: InMemoryCheckInsRepository
-let gymsRepository: InMemoryGymRepository
+let gymsRepository: InMemoryGymsRepository
 let sut: CheckInService
 
 describe('Check In Service', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepository()
-    gymsRepository = new InMemoryGymRepository()
+    gymsRepository = new InMemoryGymsRepository()
     sut = new CheckInService(checkInsRepository, gymsRepository)
 
-    gymsRepository.items.push({
+    await gymsRepository.create({
       id: 'gym-01',
       title: 'Gan Academy',
-      description: '',
-      phone: '',
-      latitude: new Decimal(-22.9792537),
-      longitude: new Decimal(-43.6477965),
+      description: null,
+      phone: null,
+      latitude: -22.9792537,
+      longitude: -43.6477965,
     })
 
     vi.useFakeTimers()
@@ -59,7 +61,7 @@ describe('Check In Service', () => {
         userLatitude: -22.9792537,
         userLongitude: -43.6477965,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('should be possible to check in twice, but in different days', async () => {
@@ -83,7 +85,7 @@ describe('Check In Service', () => {
   })
 
   it('It should not be possible to check in at a distant gym', async () => {
-    gymsRepository.items.push({
+    await gymsRepository.create({
       id: 'gym-02',
       title: 'Gan Academy',
       description: '',
@@ -99,6 +101,6 @@ describe('Check In Service', () => {
         userLatitude: -22.9792537,
         userLongitude: -43.6477965,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })
