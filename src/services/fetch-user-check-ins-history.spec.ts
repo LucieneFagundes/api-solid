@@ -17,7 +17,7 @@ describe('Fetch User Check-ins Service', () => {
     vi.useRealTimers()
   })
 
-  it.only('should be possible to fetch check-in history', async () => {
+  it('should be possible to fetch check-in history', async () => {
     vi.setSystemTime(new Date(2022, 0, 20, 8, 0))
     await checkInsRepository.create({
       gym_id: 'gym-01',
@@ -39,7 +39,7 @@ describe('Fetch User Check-ins Service', () => {
     ])
   })
 
-  it.only('should be possible to fetch paginated check-in history', async () => {
+  it('should be possible to fetch paginated check-in history', async () => {
     vi.setSystemTime(new Date(2022, 0, 20, 8, 0))
     for (let i = 1; i <= 22; i++) {
       await checkInsRepository.create({
