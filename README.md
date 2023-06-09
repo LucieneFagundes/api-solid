@@ -1,6 +1,8 @@
 # App
-
 GymPass style app.
+
+[![DeepScan grade](https://deepscan.io/api/teams/21339/projects/24820/branches/767608/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=21339&pid=24820&bid=767608)
+
 
 ## RFs (Requisitos funcionais)
 
@@ -21,12 +23,12 @@ GymPass style app.
 - [x] O usuário não pode fazer 2 check-ins no mesmo dia;
 - [x] O usuário não pode fazer check-in se não estiver perto (100m) da academia;
 - [x] O check-in só pode ser validado até 20 minutos após criado;
-- [ ] O check-in só pode ser validado por administradores;
-- [ ] A academia só pode ser cadastrada por administradores;
+- [x] O check-in só pode ser validado por administradores;
+- [x] A academia só pode ser cadastrada por administradores;
 
 ## RNFs (Requisitos não funcionais)
 
 - [x] A senha do usário precisa estar criptografada;
 - [x] Os dados da aplicação precisam estar persistidos em um bando PostgreSQL;
 - [x] Todas as listas de dados precisam estar paginada com 20 itens por página;
-- [ ] O usuário deve ser identificado por um JWT (JSON Web Token)
+- [x] O usuário deve ser identificado por um JWT (JSON Web Token)
